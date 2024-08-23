@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpawnManagerX : MonoBehaviour
 {
@@ -18,7 +16,7 @@ public class SpawnManagerX : MonoBehaviour
     public GameObject player; 
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         enemyCount = GameObject.FindGameObjectsWithTag("Powerup").Length;
 
@@ -30,7 +28,7 @@ public class SpawnManagerX : MonoBehaviour
     }
 
     // Generate random spawn position for powerups and enemy balls
-    Vector3 GenerateSpawnPosition ()
+    private Vector3 GenerateSpawnPosition ()
     {
         float xPos = Random.Range(-spawnRangeX, spawnRangeX);
         float zPos = Random.Range(spawnZMin, spawnZMax);
@@ -38,7 +36,7 @@ public class SpawnManagerX : MonoBehaviour
     }
 
 
-    void SpawnEnemyWave(int enemiesToSpawn)
+    private void SpawnEnemyWave(int enemiesToSpawn)
     {
         Vector3 powerupSpawnOffset = new Vector3(0, 0, -15); // make powerups spawn at player end
 
@@ -60,7 +58,7 @@ public class SpawnManagerX : MonoBehaviour
     }
 
     // Move player back to position in front of own goal
-    void ResetPlayerPosition ()
+    private void ResetPlayerPosition ()
     {
         player.transform.position = new Vector3(0, 1, -7);
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
