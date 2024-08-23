@@ -5,8 +5,8 @@ public class PlayerControllerX : MonoBehaviour
 {
     private Rigidbody playerRb;
     public float speed = 500;
-    private bool _isSpeeding = false;
     private GameObject focalPoint;
+    public ParticleSystem speedParticleSystem;
 
     public bool hasPowerup;
     public GameObject powerupIndicator;
@@ -30,16 +30,27 @@ public class PlayerControllerX : MonoBehaviour
         // Set powerup indicator position to beneath player.
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.6f, 0);
         
+        // Position the particle system behind the player.
+        Vector3 particlePosition = transform.position - focalPoint.transform.forward * 1.5f; // Adjust the distance behind the player as needed.
+        speedParticleSystem.transform.position = particlePosition;
+        
         // Gives the player a boost when Space is pressed.
         if (Input.GetKey(KeyCode.Space))
         {
-            _isSpeeding = true;
             speed = 800;
+            // Checks if the system is already playing so that it isn't restarted every frame.
+            if (!speedParticleSystem.isPlaying)
+            {
+                speedParticleSystem.Play();
+            }
         }
         else
         {
-            _isSpeeding = false;
             speed = 500;
+            if (speedParticleSystem.isPlaying)
+            {
+                speedParticleSystem.Stop();
+            }
         }
     }
 
