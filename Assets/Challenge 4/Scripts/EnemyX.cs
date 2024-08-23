@@ -2,7 +2,7 @@
 
 public class EnemyX : MonoBehaviour
 {
-    public float speed;
+    public static float speed = 200;
     private Rigidbody enemyRb;
     private GameObject playerGoal;
 
@@ -27,12 +27,10 @@ public class EnemyX : MonoBehaviour
         if (other.gameObject.name == "Enemy Goal")
         {
             Destroy(gameObject);
-        } 
+        }
         else if (other.gameObject.name == "Player Goal")
         {
             Destroy(gameObject);
         }
-
     }
-
 }

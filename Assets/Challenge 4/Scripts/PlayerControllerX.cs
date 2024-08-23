@@ -14,7 +14,7 @@ public class PlayerControllerX : MonoBehaviour
 
     private float normalStrength = 10; // how hard to hit enemy without power up.
     private float powerupStrength = 25; // how hard to hit enemy with power up.
-    
+
     private void Start()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -25,15 +25,17 @@ public class PlayerControllerX : MonoBehaviour
     {
         // Add force to player in direction of the focal point (and camera).
         float verticalInput = Input.GetAxis("Vertical");
-        playerRb.AddForce(focalPoint.transform.forward * (verticalInput * speed * Time.deltaTime)); 
+        playerRb.AddForce(focalPoint.transform.forward * (verticalInput * speed * Time.deltaTime));
 
         // Set powerup indicator position to beneath player.
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.6f, 0);
-        
+
         // Position the particle system behind the player.
-        Vector3 particlePosition = transform.position - focalPoint.transform.forward * 1.5f; // Adjust the distance behind the player as needed.
+        Vector3 particlePosition =
+            transform.position -
+            focalPoint.transform.forward * 1.5f; // Adjust the distance behind the player as needed.
         speedParticleSystem.transform.position = particlePosition;
-        
+
         // Gives the player a boost when Space is pressed.
         if (Input.GetKey(KeyCode.Space))
         {
@@ -80,8 +82,8 @@ public class PlayerControllerX : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             Rigidbody enemyRigidbody = other.gameObject.GetComponent<Rigidbody>();
-            var awayFromPlayer =  (transform.position + other.gameObject.transform.position).normalized; 
-           
+            var awayFromPlayer = (transform.position + other.gameObject.transform.position).normalized;
+
             if (hasPowerup) // if have power up hit enemy with power up force.
             {
                 enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
@@ -90,11 +92,6 @@ public class PlayerControllerX : MonoBehaviour
             {
                 enemyRigidbody.AddForce(awayFromPlayer * normalStrength, ForceMode.Impulse);
             }
-
-
         }
     }
-
-
-
 }
