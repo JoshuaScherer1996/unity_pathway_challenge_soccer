@@ -4,7 +4,8 @@ using UnityEngine;
 public class PlayerControllerX : MonoBehaviour
 {
     private Rigidbody playerRb;
-    private float speed = 500;
+    public float speed = 500;
+    private bool _isSpeeding = false;
     private GameObject focalPoint;
 
     public bool hasPowerup;
@@ -28,7 +29,18 @@ public class PlayerControllerX : MonoBehaviour
 
         // Set powerup indicator position to beneath player.
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.6f, 0);
-
+        
+        // Gives the player a boost when Space is pressed.
+        if (Input.GetKey(KeyCode.Space))
+        {
+            _isSpeeding = true;
+            speed = 800;
+        }
+        else
+        {
+            _isSpeeding = false;
+            speed = 500;
+        }
     }
 
     // If Player collides with power up, activate power up.

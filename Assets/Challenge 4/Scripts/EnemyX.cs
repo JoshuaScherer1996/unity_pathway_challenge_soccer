@@ -19,7 +19,6 @@ public class EnemyX : MonoBehaviour
         // Set enemy direction towards player goal and move there.
         var lookDirection = (playerGoal.transform.position - enemyRb.transform.position).normalized;
         enemyRb.AddForce(lookDirection * (speed * Time.deltaTime));
-
     }
 
     private void OnCollisionEnter(Collision other)
